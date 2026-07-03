@@ -28,13 +28,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * ================================================================
  * POINT D'ENTRÉE — BUDGETCAM
  * ================================================================
  * @EnableAsync : active l'exécution asynchrone (@Async sur EmailService)
  *               Sans ça, les emails seraient envoyés de façon synchrone
  *               et bloqueraient la réponse HTTP pendant l'envoi SMTP.
- * ================================================================
  */
 @SpringBootApplication
 @EnableAsync
@@ -42,19 +40,17 @@ public class BudgetCamApplication {
     public static void main(String[] args) {
         SpringApplication.run(BudgetCamApplication.class, args);
         System.out.println("""
-                ================================================
-                💰  BudgetCam API démarrée !
-                📍  http://localhost:8083/api/v1
-                📧  Spring Mail configuré (voir application.properties)
-                ================================================
+              
+                  BudgetCam API démarrée !
+                  http://localhost:8083/api/v1
+                 Spring Mail configuré (voir application.properties)
+               
                 """);
     }
 }
 
 
-// ================================================================
 // CONTROLLER AUTH
-// ================================================================
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
