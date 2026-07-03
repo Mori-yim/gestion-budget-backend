@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+  Template email : RAPPORT MENSUEL AUTOMATIQUE
+  Envoyé le 1er de chaque mois via @Scheduled.
+  Résume les finances du mois précédent.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport Mensuel — BudgetCam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; color: #1e293b; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .header { background: linear-gradient(135deg, #7c3aed, #6d28d9); padding: 40px 30px; text-align: center; }
+        .header h1 { color: white; font-size: 26px; font-weight: 800; }
+        .header .period { color: rgba(255,255,255,0.9); font-size: 18px; font-weight: 600; margin-top: 6px; }
+        .body { padding: 36px 30px; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+        .summary-card { border-radius: 12px; padding: 20px; text-align: center; }
+        .summary-card.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        .summary-card.red { background: #fef2f2; border: 1px solid #fecaca; }
+        .summary-card.blue { background: #eff6ff; border: 1px solid #bfdbfe; }
+        .summary-card.purple { background: #faf5ff; border: 1px solid #e9d5ff; }
+        .summary-label { font-size: 12px; color: #64748b; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .summary-value { font-size: 22px; font-weight: 800; }
+        .summary-card.green .summary-value { color: #16a34a; }
+        .summary-card.red .summary-value { color: #dc2626; }
+        .summary-card.blue .summary-value { color: #2563eb; }
+        .summary-card.purple .summary-value { color: #7c3aed; }
+        .section-title { font-size: 16px; font-weight: 700; color: #0f172a; margin: 28px 0 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+        .category-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f8fafc; }
+        .category-info { display: flex; align-items: center; gap: 10px; }
+        .category-icon { font-size: 20px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 8px; }
+        .category-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+        .category-count { font-size: 12px; color: #94a3b8; }
+        .category-amount { font-size: 15px; font-weight: 700; color: #dc2626; }
+        .progress-mini { width: 80px; height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden; margin-left: 10px; }
+        .progress-mini-fill { height: 100%; border-radius: 3px; }
+        .balance-section { background: linear-gradient(135deg, #16a34a, #15803d); border-radius: 16px; padding: 24px; text-align: center; margin: 24px 0; }
+        .balance-label { color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 8px; }
+        .balance-value { color: white; font-size: 32px; font-weight: 900; }
+        .balance-sub { color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 4px; }
+        .tip-box { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 16px; margin: 20px 0; }
+        .tip-box p { font-size: 13px; color: #92400e; line-height: 1.6; }
+        .cta-button { display: block; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white !important;
+                      text-decoration: none; text-align: center; padding: 14px 28px;
+                      border-radius: 12px; font-size: 15px; font-weight: 700; margin: 24px 0; }
+        .footer { background: #f8fafc; padding: 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; }
+        .footer p { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <h1>📊 Rapport Mensuel</h1>
+            <div class="period" th:text="${moisAnnee}">Mai 2025</div>
+        </div>
+
+        <div class="body">
+
+            <p style="font-size:16px; margin-bottom:20px;">
+                Bonjour <strong th:text="${firstName}">Jean</strong>,
+                voici le résumé de vos finances pour le mois de
+                <strong th:text="${moisAnnee}">Mai 2025</strong>.
+            </p>
+
+            <!-- Résumé 4 chiffres clés -->
+            <div class="summary-grid">
+                <div class="summary-card green">
+                    <div class="summary-label">💚 Revenus</div>
+                    <div class="summary-value" th:text="${totalRevenus} + ' F'">350 000 F</div>
+                </div>
+                <div class="summary-card red">
+                    <div class="summary-label">❤️ Dépenses</div>
+                    <div class="summary-value" th:text="${totalDepenses} + ' F'">280 000 F</div>
+                </div>
+                <div class="summary-card blue">
+                    <div class="summary-label">🔵 Transactions</div>
+                    <div class="summary-value" th:text="${nbTransactions}">47</div>
+                </div>
+                <div class="summary-card purple">
+                    <div class="summary-label">💜 Budgets OK</div>
+                    <div class="summary-value" th:text="${budgetsRespectés} + '/' + ${totalBudgets}">4/6</div>
+                </div>
+            </div>
+
+            <!-- Solde net du mois -->
+            <div class="balance-section">
+                <div class="balance-label">SOLDE NET DU MOIS</div>
+                <div class="balance-value" th:text="${soldeMois > 0 ? '+' : ''} + ${soldeMois} + ' FCFA'">+70 000 FCFA</div>
+                <div class="balance-sub" th:text="${soldeMois > 0 ? '✅ Mois positif — continuez comme ça !' : '⚠️ Dépenses supérieures aux revenus'}">
+                    ✅ Mois positif — continuez comme ça !
+                </div>
+            </div>
+
+            <!-- Top dépenses par catégorie -->
+            <div class="section-title">🏆 Dépenses par catégorie</div>
+
+            <!-- th:each itère sur une liste Thymeleaf -->
+            <div th:each="cat : ${categoriesStats}">
+                <div class="category-row">
+                    <div class="category-info">
+                        <div class="category-icon" th:text="${cat.icone}">🍔</div>
+                        <div>
+                            <div class="category-name" th:text="${cat.nom}">Alimentation</div>
+                            <div class="category-count" th:text="${cat.nbTransactions} + ' transactions'">12 transactions</div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="progress-mini">
+                            <div class="progress-mini-fill"
+                                 th:style="'width:' + ${cat.pourcentageBudget > 100 ? 100 : cat.pourcentageBudget} + '%;background:' + (${cat.pourcentageBudget > 100} ? '#dc2626' : '#16a34a')"></div>
+                        </div>
+                        <div class="category-amount" th:text="${cat.total} + ' F'">85 000 F</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conseil du mois -->
+            <div class="tip-box" th:if="${conseil != null}">
+                <p>💡 <strong>Conseil du mois :</strong>
+                    <span th:text="${conseil}">Vos dépenses alimentaires représentent 30% de vos revenus. La moyenne conseillée est de 20-25%.</span>
+                </p>
+            </div>
+
+            <!-- CTA -->
+            <a class="cta-button" th:href="${frontendUrl + '/dashboard'}">
+                📊 Voir le rapport détaillé
+            </a>
+
+            <p style="font-size:13px;color:#94a3b8;text-align:center;">
+                Ce rapport est généré automatiquement le 1er de chaque mois.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 BudgetCam — Rapport mensuel automatique<br>
+                <a href="#" style="color:#7c3aed;">Désactiver les rapports mensuels</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+  Template email : ALERTE BUDGET DÉPASSÉ
+  Envoyé automatiquement quand une dépense fait dépasser le budget d'une catégorie.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>⚠️ Alerte Budget — BudgetCam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fef2f2; color: #1e293b; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .header { background: linear-gradient(135deg, #dc2626, #b91c1c); padding: 40px 30px; text-align: center; }
+        .header h1 { color: white; font-size: 26px; font-weight: 800; }
+        .header p { color: rgba(255,255,255,0.85); margin-top: 8px; }
+        .body { padding: 36px 30px; }
+        .alert-box { background: #fef2f2; border: 2px solid #fecaca; border-radius: 12px; padding: 24px; margin: 20px 0; text-align: center; }
+        .alert-category { font-size: 32px; margin-bottom: 8px; }
+        .alert-title { font-size: 22px; font-weight: 800; color: #dc2626; margin-bottom: 4px; }
+        .progress-section { margin: 24px 0; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 13px; color: #64748b; margin-bottom: 8px; }
+        .progress-bar { height: 16px; background: #fee2e2; border-radius: 8px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #dc2626, #b91c1c); border-radius: 8px; transition: width 0.3s; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .stat-card { background: #f8fafc; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #e2e8f0; }
+        .stat-value { font-size: 18px; font-weight: 800; color: #0f172a; }
+        .stat-label { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+        .stat-card.over { background: #fef2f2; border-color: #fecaca; }
+        .stat-card.over .stat-value { color: #dc2626; }
+        .tips { background: #f0fdf4; border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #16a34a; }
+        .tips h3 { font-size: 15px; font-weight: 700; color: #15803d; margin-bottom: 12px; }
+        .tip-item { font-size: 13px; color: #374151; margin-bottom: 8px; line-height: 1.5; }
+        .cta-button { display: block; background: linear-gradient(135deg, #16a34a, #15803d); color: white !important;
+                      text-decoration: none; text-align: center; padding: 14px 28px;
+                      border-radius: 12px; font-size: 15px; font-weight: 700; margin: 24px 0; }
+        .footer { background: #f8fafc; padding: 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; }
+        .footer p { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+
+        <!-- En-tête rouge (alerte) -->
+        <div class="header">
+            <h1>⚠️ Budget dépassé !</h1>
+            <p th:text="'Catégorie : ' + ${categorieNom}">Catégorie : Alimentation</p>
+        </div>
+
+        <div class="body">
+
+            <p style="font-size:16px; margin-bottom:20px;">
+                Bonjour <strong th:text="${firstName}">Jean</strong>,
+                votre budget pour la catégorie <strong th:text="${categorieNom}">Alimentation</strong>
+                vient d'être dépassé suite à votre dernière dépense.
+            </p>
+
+            <!-- Boîte d'alerte principale -->
+            <div class="alert-box">
+                <div class="alert-category" th:text="${categorieIcone}">🍔</div>
+                <div class="alert-title" th:text="${categorieNom}">Alimentation</div>
+                <p style="color:#64748b; font-size:14px; margin-top:8px;">
+                    Dépassement de
+                    <strong style="color:#dc2626;" th:text="${depassement} + ' FCFA'">15 000 FCFA</strong>
+                </p>
+            </div>
+
+            <!-- Barre de progression (dépensé vs budget) -->
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Budget mensuel</span>
+                    <span th:text="${pourcentage} + '% utilisé'">120% utilisé</span>
+                </div>
+                <div class="progress-bar">
+                    <!-- th:style permet d'injecter un style dynamique -->
+                    <div class="progress-fill" th:style="'width: ' + ${[pourcentage > 100 ? 100 : pourcentage]} + '%'"></div>
+                </div>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" th:text="${budgetMensuel} + ' F'">50 000 F</div>
+                    <div class="stat-label">Budget fixé</div>
+                </div>
+                <div class="stat-card over">
+                    <div class="stat-value" th:text="${totalDepense} + ' F'">65 000 F</div>
+                    <div class="stat-label">Total dépensé</div>
+                </div>
+                <div class="stat-card over">
+                    <div class="stat-value" th:text="'-' + ${depassement} + ' F'">-15 000 F</div>
+                    <div class="stat-label">Dépassement</div>
+                </div>
+            </div>
+
+            <!-- Dernière transaction -->
+            <div style="background:#f8fafc; border-radius:12px; padding:16px; margin:20px 0; border:1px solid #e2e8f0;">
+                <p style="font-size:13px; color:#64748b; margin-bottom:6px;">Dernière transaction enregistrée :</p>
+                <p style="font-size:15px; font-weight:700; color:#0f172a;" th:text="${derniereTx}">Supermarché Casino — 12 500 FCFA</p>
+                <p style="font-size:12px; color:#94a3b8;" th:text="${dateDerniereTx}">25 juin 2025 à 14:32</p>
+            </div>
+
+            <!-- Conseils -->
+            <div class="tips">
+                <h3>💡 Conseils pour gérer cet écart</h3>
+                <p class="tip-item">🔸 Réduisez les dépenses dans cette catégorie jusqu'à la fin du mois</p>
+                <p class="tip-item">🔸 Compensez en diminuant le budget d'une autre catégorie non essentielle</p>
+                <p class="tip-item">🔸 Ajustez votre budget mensuel pour ce poste si c'est récurrent</p>
+                <p class="tip-item">🔸 Consultez votre historique pour identifier les achats superflus</p>
+            </div>
+
+            <!-- Bouton vers l'app -->
+            <a class="cta-button" th:href="${frontendUrl + '/dashboard'}">
+                📊 Voir mon tableau de bord
+            </a>
+
+            <p style="font-size:13px; color:#94a3b8; text-align:center;">
+                Vous pouvez désactiver ces alertes dans les paramètres de votre compte.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 BudgetCam — Alerte automatique de budget<br>
+                <a href="#" style="color:#16a34a;">Gérer mes alertes</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
