@@ -8,7 +8,7 @@ import java.util.List;
 
 // ================================================================
 // REPOSITORY CATÉGORIE
-// ================================================================
+
 @Repository
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {
     List<Categorie> findByUserIdOrderByNomAsc(Long userId);

@@ -11,7 +11,6 @@ import java.time.LocalDateTime; /**
  *
  * Chaque utilisateur crée ses propres catégories.
  * Certaines sont créées par défaut à l'inscription.
- * ================================================================
  */
 @Entity
 @Table(name = "categories")

@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class Dto {
 
-    // ── AUTH ─────────────────────────────────────────────────────
+    // ── AUTH
 
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class RegisterRequest {
@@ -43,7 +43,7 @@ public class Dto {
         }
     }
 
-    // ── USER ─────────────────────────────────────────────────────
+    // ── USER
 
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class UserResponse {
@@ -77,7 +77,7 @@ public class Dto {
         private BigDecimal salaireMensuel;
     }
 
-    // ── CATÉGORIE ────────────────────────────────────────────────
+    // ── CATÉGORIE
 
     @Data @NoArgsConstructor @AllArgsConstructor
     public static class CreateCategorieRequest {
@@ -104,7 +104,7 @@ public class Dto {
         }
     }
 
-    // ── TRANSACTION ──────────────────────────────────────────────
+    // ── TRANSACTION
 
     @Data @NoArgsConstructor @AllArgsConstructor
     public static class CreateTransactionRequest {
@@ -142,7 +142,7 @@ public class Dto {
         }
     }
 
-    // ── BUDGET ───────────────────────────────────────────────────
+    // ── BUDGET
 
     @Data @NoArgsConstructor @AllArgsConstructor
     public static class CreateBudgetRequest {
@@ -166,7 +166,7 @@ public class Dto {
         private Boolean alerteEnvoyee;
     }
 
-    // ── DASHBOARD ────────────────────────────────────────────────
+    // ── DASHBOARD
 
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DashboardStats {
@@ -195,7 +195,7 @@ public class Dto {
         private List<TransactionResponse> transactionsRecentes;
     }
 
-    // ── PAGINATION ───────────────────────────────────────────────
+    // ── PAGINATION
 
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class PageResponse<T> {
@@ -208,8 +208,7 @@ public class Dto {
         private boolean last;
     }
 
-    // ── API RESPONSE ─────────────────────────────────────────────
-
+    // ── API RESPONSE
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ApiResponse<T> {
         private boolean success;

@@ -15,7 +15,6 @@ import java.time.LocalDateTime; /**
  *
  * IMMUABLE : une transaction ne se modifie pas.
  * Pour corriger, on crée une transaction inverse.
- * ================================================================
  */
 @Entity
 @Table(name = "transactions")

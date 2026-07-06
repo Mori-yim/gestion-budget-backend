@@ -36,7 +36,7 @@ import java.util.List;
  */
 @SpringBootApplication
 @EnableAsync
-public class BudgetCamApplication {
+public class    BudgetCamApplication {
     public static void main(String[] args) {
         SpringApplication.run(BudgetCamApplication.class, args);
         System.out.println("""
@@ -84,9 +84,9 @@ class AuthController {
 }
 
 
-// ================================================================
+
 // CONTROLLER CATÉGORIES
-// ================================================================
+
 @RestController
 @RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor

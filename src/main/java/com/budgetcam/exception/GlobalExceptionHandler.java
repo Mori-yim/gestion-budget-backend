@@ -59,3 +59,4 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error("Erreur interne du serveur"));
     }
 }
+

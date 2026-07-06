@@ -22,7 +22,6 @@ import java.util.List;
  *   - Des transactions (revenus + dépenses)
  *   - Des budgets mensuels par catégorie
  *   - Des préférences de notification par email
- * ================================================================
  */
 @Entity
 @Table(name = "users")

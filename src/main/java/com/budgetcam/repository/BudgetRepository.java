@@ -11,7 +11,6 @@ import java.util.Optional;
 
 // ================================================================
 // REPOSITORY BUDGET
-// ================================================================
 @Repository
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
 

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 // ================================================================
 // CATEGORIE SERVICE
-// ================================================================
+
 @Service
 @RequiredArgsConstructor
 @Slf4j

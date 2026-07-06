@@ -37,7 +37,6 @@ import java.util.*;
  *   1. Vérification quotidienne des dépassements de budget
  *      → Envoie une alerte email si budget dépassé
  *   2. Envoi du rapport mensuel le 1er de chaque mois
- * ================================================================
  */
 @Component
 @EnableScheduling

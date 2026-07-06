@@ -6,7 +6,6 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime; /**
- * ================================================================
  * ENTITÉ BUDGET MENSUEL
  * ================================================================
  * Définit un plafond de dépenses par catégorie et par mois.
@@ -14,7 +13,6 @@ import java.time.LocalDateTime; /**
  * Exemple :
  *   Budget Alimentation - Juin 2025 - 80 000 FCFA
  *   → Si dépenses alimentation > 80 000 FCFA → email d'alerte
- * ================================================================
  */
 @Entity
 @Table(name = "budgets",
